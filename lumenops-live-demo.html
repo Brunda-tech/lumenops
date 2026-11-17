@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LumenOps</title>
+<style>
+:root{--bg:#173b78;--cd:#102d5b;--tx:#e7eef7;--mu:#afc0d8;--ln:#3b5f95;--hd:#ffe08a;--bt:#214b83;--so:#274879;--or:#ffd34e;--rd:#e56878;--am:#e8ba47;--gr:#43c78a;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="light"]{--bg:#f1f4f9;--cd:#fff;--tx:#1b2536;--mu:#667085;--ln:#d8dfe8;--hd:#1f3a5f;--bt:#1f3a5f;--so:#eaf1fb;--or:#e07b1a;--rd:#c0392b;--am:#d68910;--gr:#2e8b57;color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#173b78;--cd:#102d5b;--tx:#e7eef7;--mu:#afc0d8;--ln:#3b5f95;--hd:#ffe08a;--bt:#214b83;--so:#274879;--or:#ffd34e;--rd:#e56878;--am:#e8ba47;--gr:#43c78a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#173b78;--cd:#102d5b;--tx:#e7eef7;--mu:#afc0d8;--ln:#3b5f95;--hd:#ffe08a;--bt:#214b83;--so:#274879;--or:#ffd34e;--rd:#e56878;--am:#e8ba47;--gr:#43c78a;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Arial,"Noto Sans Kannada","Nirmala UI",Tunga,Helvetica,sans-serif;line-height:1.5}
+.w{max-width:900px;margin:0 auto;padding:16px 16px 40px}
+h1{margin:0;color:var(--hd);font-size:30px}h2{margin:0 0 6px;color:var(--hd);font-size:20px}
+.m{color:var(--mu);font-size:14px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:18px}.top b{font-size:20px;color:var(--hd);flex:1}
+.chip{background:var(--or);color:#102547;padding:4px 12px;border-radius:14px;font-size:13px;font-weight:bold}
+button,select{font:inherit;font-size:15px;padding:11px 13px;border-radius:8px;border:1px solid var(--ln);background:var(--cd);color:var(--tx)}
+button{cursor:pointer}button.b{background:var(--or);color:#102547;border:0;font-weight:bold}button.w2{width:100%;margin-top:8px}
+button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--or);outline-offset:2px}
+.land{text-align:center;padding-top:26px}.land p{margin:6px 0 22px}
+.rc{display:block;width:100%;text-align:left;padding:18px;margin-top:12px;border:1px solid var(--ln);border-left:6px solid var(--or);border-radius:10px;background:var(--cd)}
+.rc b{display:block;font-size:19px;color:var(--hd)}.rc span{color:var(--mu);font-size:14px}.rc:hover{background:var(--so)}
+.flow{margin-top:24px;font-size:14px;color:var(--mu)}.flow b{color:var(--tx)}
+.c{background:var(--cd);border:1px solid var(--ln);border-radius:12px;padding:16px;margin-bottom:12px}
+.ph{max-width:460px;margin:0 auto}.ph label{display:block;margin-top:12px;font-size:14px;color:var(--mu)}.ph select{width:100%;margin-top:4px}
+.bd{color:#fff;font-size:12px;padding:2px 9px;border-radius:10px;margin-left:6px}.High{background:var(--rd)}.Medium{background:var(--am);color:#102547}.Low{background:var(--gr)}
+.row{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}.row select{flex:1;min-width:140px}
+.st{display:flex;gap:6px;margin:12px 0;font-size:13px}.st i{flex:1;text-align:center;padding:7px 2px;border:1px solid var(--ln);border-radius:6px;font-style:normal;color:var(--mu)}.st i.o{background:var(--gr);color:#fff;border-color:var(--gr);font-weight:bold}
+.sec{margin:20px 0 8px;font-size:15px;font-weight:bold;color:var(--hd)}
+.note{background:color-mix(in srgb,var(--or) 14%,var(--cd));border-left:4px solid var(--or);padding:9px 12px;border-radius:6px;font-size:13px;margin-top:10px}
+.ft{font-size:12px;color:var(--mu);margin-top:26px}
+.tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}.tabs button{flex:1;min-width:110px}.tabs button.on{background:var(--bt);color:#fff;border-color:var(--or)}
+input{font:inherit;font-size:15px;padding:10px;border:1px solid var(--ln);border-radius:8px;background:var(--cd);color:var(--tx);width:100%;margin-top:4px;box-sizing:border-box}
+.bars{display:flex;gap:8px;align-items:flex-end;height:100px;margin:22px 0 4px}.bars div{flex:1;background:var(--hd);border-radius:4px 4px 0 0;opacity:.8;position:relative}.bars span{position:absolute;top:-17px;left:0;right:0;text-align:center;font-size:11px;color:var(--mu)}
+.mons{display:flex;gap:8px;font-size:11px;color:var(--mu)}.mons span{flex:1;text-align:center}
+.tb{width:100%;border-collapse:collapse;font-size:14px}.tb td,.tb th{padding:7px 4px;border-bottom:1px solid var(--ln);text-align:left}
+.paid{color:var(--gr);font-weight:bold}.due{color:var(--rd);font-weight:bold}
+svg{width:100%;height:auto;display:block;border-radius:8px;background:var(--so)}
+.rk{height:8px;border-radius:4px;background:var(--ln);overflow:hidden;margin-top:3px}.rk i{display:block;height:100%}
+.rw{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--ln);font-size:14px}.stars button{padding:6px 12px;margin-right:4px}.lang{position:fixed;bottom:12px;right:12px;z-index:5;display:flex;gap:4px;background:var(--or);border:1px solid #ffe0a3;padding:4px;border-radius:22px;box-shadow:0 2px 12px rgba(0,0,0,.2)}.lang button{padding:6px 14px;border-radius:18px;border:0;font-size:14px;background:transparent;color:#102547}.lang button.on{background:#173b78;color:#fff}textarea{font:inherit;font-size:15px;padding:10px;border:1px solid var(--ln);border-radius:8px;background:var(--cd);color:var(--tx);width:100%;box-sizing:border-box;margin-top:4px}
+:root{--g1:#173b78;--g2:#173b78;--sc:#6683ab}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--g1:#173b78;--g2:#173b78;--sc:#6683ab}}
+:root[data-theme="dark"]{--g1:#173b78;--g2:#173b78;--sc:#6683ab}
+:root[data-theme="light"]{--g1:#e6eefa;--g2:#f8fafd;--sc:#1f3a5f}
+html{background:var(--g2)}body{background:transparent;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 88% 12%,rgba(255,204,62,.55),transparent 38%),radial-gradient(ellipse at 12% 82%,rgba(255,210,90,.2),transparent 30%),linear-gradient(135deg,var(--g1),var(--g2))}
+.bg svg{position:absolute;left:0;bottom:0;width:100%;height:100%;border-radius:0;background:none}
+.hid{position:absolute;width:0;height:0}
+.hero{max-width:430px;width:100%;height:auto;margin:0 auto;display:block;background:none;border-radius:0}
+.ti{width:18px;height:30px;display:inline-block;vertical-align:middle;margin-right:6px;background:none;border-radius:0}
+.bolt{display:inline-block;animation:zap 2.4s ease-in-out infinite}
+.c{background:color-mix(in srgb,var(--cd) 93%,transparent);backdrop-filter:blur(6px);transition:transform .2s,box-shadow .2s}
+.c:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(15,35,70,.14)}
+button{transition:transform .15s,box-shadow .15s,background .2s}
+button:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.14)}button:active{transform:none}
+.rc{transition:transform .2s,background .2s,box-shadow .2s}.rc:hover{transform:translateX(6px);box-shadow:0 6px 18px rgba(15,35,70,.14)}
+.fresh .land>*,.fresh .c,.fresh .top,.fresh h2,.fresh .tabs,.fresh .sec{animation:up .5s both}
+.fresh .rc:nth-of-type(1){animation-delay:.12s}.fresh .rc:nth-of-type(2){animation-delay:.22s}.fresh .rc:nth-of-type(3){animation-delay:.32s}
+.fresh .c:nth-of-type(2){animation-delay:.08s}.fresh .c:nth-of-type(3){animation-delay:.16s}.fresh .c:nth-of-type(4){animation-delay:.24s}
+.bars div{transform-origin:bottom;animation:gr .9s both}.st i.o{animation:pop .45s both}
+.chip{transition:background .2s}.note{animation:up .4s both}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes gr{from{transform:scaleY(0)}}@keyframes pop{0%{transform:scale(.8)}60%{transform:scale(1.08)}to{transform:scale(1)}}
+@keyframes zap{0%,100%{transform:scale(1);filter:none}45%{transform:scale(1.25) rotate(-8deg);filter:drop-shadow(0 0 6px #f5a524)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style></head><body>
+<svg class="hid" aria-hidden="true"><defs>
+<symbol id="py" viewBox="0 0 100 220"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M28 218L46 30H54L72 218M36 160H64M41 112H59M44 70H56M30 150L62 112M70 150L38 112M36 112L56 70M64 112L44 70M10 48H90M20 78H80M10 48V56M90 48V56M20 78V86M80 78V86"/></g></symbol>
+<symbol id="tr" viewBox="0 0 70 120"><g fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M35 118V70M6 18H64"/><rect x="14" y="42" width="42" height="40" rx="6"/><path d="M22 42V82M30 42V82M38 42V82M46 42V82M16 36H54M18 10V18M35 10V18M52 10V18M12 8H24M29 8H41M46 8H58"/></g></symbol>
+</defs></svg>
+<div class="bg" aria-hidden="true"><svg viewBox="0 0 1200 500" preserveAspectRatio="xMidYMax slice">
+<g style="color:var(--sc)" opacity=".2" fill="none" stroke="currentColor" stroke-width="2">
+<path d="M0 497H1200" stroke-width="3"/>
+<g fill="currentColor" stroke="none" opacity=".5"><rect x="20" y="410" width="50" height="87"/><rect x="82" y="370" width="38" height="127"/><rect x="540" y="420" width="60" height="77"/><rect x="610" y="385" width="36" height="112"/><rect x="1080" y="400" width="55" height="97"/><rect x="1142" y="430" width="40" height="67"/></g>
+<use href="#py" x="60" y="237" width="120" height="260"/><use href="#py" x="360" y="237" width="120" height="260"/><use href="#py" x="660" y="237" width="120" height="260"/><use href="#py" x="960" y="237" width="120" height="260"/>
+<use href="#tr" x="262" y="401" width="52" height="96"/><use href="#tr" x="842" y="401" width="52" height="96"/>
+<path d="M168 294Q270 332 372 294M156 329Q270 367 384 329M468 294Q570 332 672 294M456 329Q570 367 684 329M768 294Q870 332 972 294M756 329Q870 367 984 329"/>
+</g>
+<g fill="#f5a524" opacity=".85">
+<circle r="3.5"><animateMotion dur="5s" repeatCount="indefinite" path="M168 294Q270 332 372 294"/></circle>
+<circle r="3.5"><animateMotion dur="6.5s" repeatCount="indefinite" path="M156 329Q270 367 384 329"/></circle>
+<circle r="3.5"><animateMotion dur="5.5s" repeatCount="indefinite" path="M468 294Q570 332 672 294"/></circle>
+<circle r="3.5"><animateMotion dur="7s" repeatCount="indefinite" path="M456 329Q570 367 684 329"/></circle>
+<circle r="3.5"><animateMotion dur="6s" repeatCount="indefinite" path="M768 294Q870 332 972 294"/></circle>
+<circle r="3.5"><animateMotion dur="5s" repeatCount="indefinite" path="M756 329Q870 367 984 329"/></circle>
+<rect x="30" y="425" width="6" height="6"><animate attributeName="opacity" values="0;1;0" dur="3s" repeatCount="indefinite"/></rect>
+<rect x="95" y="390" width="6" height="6"><animate attributeName="opacity" values="1;0;1" dur="4s" repeatCount="indefinite"/></rect>
+<rect x="620" y="405" width="6" height="6"><animate attributeName="opacity" values="0;1;0" dur="3.5s" repeatCount="indefinite"/></rect>
+<rect x="1095" y="420" width="6" height="6"><animate attributeName="opacity" values="1;0;1" dur="2.8s" repeatCount="indefinite"/></rect>
+</g></svg></div>
+<div class="w" id="app"></div>
+<div class="lang" role="group" aria-label="Language"><button data-a="lang" data-l="en">English</button><button data-a="lang" data-l="kn">ಕನ್ನಡ</button></div>
+<script>
+const ORD=["Pending","Crew assigned","Completed"],K=111320*Math.cos(12.97*Math.PI/180);
+const HOSP=[12.9254,77.5836],SP={A:[12.925,77.583],B:[12.969,77.75],C:[13.035,77.597],T:[12.9108,77.6398],S:[13.0005,77.5505],I:[12.9852,77.7002]},PLACES={A:"Near a hospital",T:"Near a temple",S:"Near a school or college",I:"Near an industry",B:"Near a water pumping station",C:"Planned maintenance area"},ISSUES=["No power","Partial power","Low voltage","Fire or sparks near a street light or transformer","Other (describe it)"];
+const DT=[{id:"DT-A1",f:"F-11",la:12.9252,ln:77.5832,fail:1,m:95},{id:"DT-B1",f:"F-22",la:12.9693,ln:77.7502,fail:4,m:230},{id:"DT-C1",f:"F-33",la:13.0348,ln:77.5972,fail:0,m:40},{id:"DT-L1",f:"F-44",la:12.9105,ln:77.6395,fail:1,m:310},{id:"DT-L2",f:"F-44",la:13.0004,ln:77.5503,fail:0,m:60},{id:"DT-I1",f:"F-55",la:12.9852,ln:77.7002,fail:2,m:160}];
+const CREWS=["Crew 1","Crew 2","Crew 3","Crew 4"],CAUSES=["Transformer fault","Line fault","Fuse or low-voltage fault","Planned work","Other"];
+const dm=(a,b,c,d)=>Math.hypot((a-c)*110540,(b-d)*K);
+let sd=7;const rnd=()=>{sd|=0;sd=sd+0x6D2B79F5|0;let t=Math.imul(sd^sd>>>15,1|sd);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+let C=[],nid=1,mine=null,role="",utab="rep",atab="inc",sel=null,trip={},wo={},paid={},apps=[],rated={},appErr="",pending="",sess=null,fails=0,lockUntil=0,authMsg="",log=[],formErr="",draft={},appDraft={},billErr="",billRR="",BILLDB={"RR-DEMO-1042":{units:[118,126,141,152,133,127],paid:null}};
+const add=(la,ln,min)=>{const c={id:nid++,lat:la,lng:ln,t:Date.now()-min*6e4,st:"Pending",ty:"No power",crew:"",cause:""};C.push(c);return c};
+function seed(){C=[];nid=1;mine=null;
+[[12.925,77.583,42,177,150,.0012],[12.969,77.75,11,57,40,.001],[13.035,77.597,3,17,15,.0006]].forEach(([a,b,n,s,sp,j])=>{for(let i=0;i<n;i++)add(a+(rnd()*2-1)*j,b+(rnd()*2-1)*j,s-rnd()*sp)});add(12.91,77.64,7);add(13,77.55,2)}
+function build(){const now=Date.now(),n=C.length,P=C.map(c=>[c.lng*K,c.lat*110540,c.t/6e4*(250/90)]),lab=Array(n).fill(-2);let cl=0;
+const nb=i=>{const r=[];for(let j=0;j<n;j++)if(Math.hypot(P[i][0]-P[j][0],P[i][1]-P[j][1],P[i][2]-P[j][2])<=250)r.push(j);return r};
+for(let i=0;i<n;i++){if(lab[i]!==-2)continue;const N=nb(i);if(N.length<2){lab[i]=-1;continue}lab[i]=cl;const q=[...N];
+while(q.length){const j=q.pop();if(lab[j]===-1)lab[j]=cl;if(lab[j]!==-2)continue;lab[j]=cl;const M=nb(j);if(M.length>=2)q.push(...M)}cl++}
+const g={};C.forEach((c,i)=>{const k=lab[i]<0?"n"+i:lab[i];(g[k]=g[k]||[]).push(c)});
+const I=Object.values(g).map(M=>{const la=M.reduce((s,c)=>s+c.lat,0)/M.length,ln=M.reduce((s,c)=>s+c.lng,0)/M.length,dur=(now-Math.min(...M.map(c=>c.t)))/6e4,
+hosp=dm(la,ln,HOSP[0],HOSP[1])<=300,fire=M.some(c=>c.ty&&c.ty.startsWith("Fire")),sc=Math.min(M.length/30,1)*40+Math.min(dur/180,1)*30+(hosp?30:0)+(fire?40:0);
+let dt=null,best=600;DT.forEach(d=>{const x=dm(la,ln,d.la,d.ln);if(x<best){best=x;dt=d}});
+return{id:"INC-"+String(Math.min(...M.map(c=>c.id))).padStart(4,"0"),M,la,ln,n:M.length,dur,hosp,sc,dt,pl:dm(la,ln,13.035,77.597)<=600,fire,place:(M.find(c=>c.place)||{}).place,oth:[...new Set(M.filter(c=>c.other).map(c=>c.other))].slice(0,2),pr:fire||sc>=55?"High":sc>=20?"Medium":"Low",
+st:ORD[Math.min(...M.map(c=>ORD.indexOf(c.st)))],crew:M[0].crew,cause:M[0].cause}});
+return I.sort((a,b)=>b.sc-a.sc)}
+const fm=m=>m<60?Math.round(m)+" min":Math.floor(m/60)+"h "+Math.round(m%60)+"m";
+const card=(i,body)=>`<div class="c"><b>${i.id}</b><span class="bd ${i.pr}">${i.pr}</span>${i.fire?`<span class="bd High" style="margin-left:4px">Fire</span>`:""}${i.place?`<div class="m">${esc(i.place)}</div>`:""}${i.oth.length?`<div class="m">Reported: ${i.oth.map(t=>"“"+esc(t)+"”").join(", ")}</div>`:""}<div class="m">${i.n} ${i.n===1?"report":"reports"} · ${fm(i.dur)} since first report${i.hosp?" · hospital nearby":""}</div>${i.dt?`<div class="m">Probable transformer: ${i.dt.id} (feeder ${i.dt.f})</div>`:""}${body}</div>`;
+const opts=(a,sel)=>a.map(x=>`<option value="${x}"${x===sel?" selected":""}>${x}</option>`).join("");
+const MSG={Pending:"Received. An admin will assign a crew.","Crew assigned":"{c} is on the way to your area.",Completed:"Work completed and power restored. If it is still out, please report again."};
+const HERO=`<svg class="hero" viewBox="0 0 400 170" aria-hidden="true" style="color:var(--hd)"><path d="M10 160H390" stroke="currentColor" stroke-width="3"/>
+<use href="#py" x="10" y="40" width="80" height="120"/><use href="#tr" x="170" y="50" width="60" height="110"/>
+<path d="M330 160V120L350 105L370 120V160Z" fill="none" stroke="currentColor" stroke-width="3"/>
+<path d="M82 66Q128 92 175 66M225 66Q300 72 350 105" fill="none" stroke="currentColor" stroke-width="2"/>
+<path d="M200 6L190 30H199L194 50L212 24H203Z" fill="#f5a524"><animate attributeName="opacity" values="1;.25;1" dur="1.6s" repeatCount="indefinite"/></path>
+<rect x="343" y="128" width="14" height="14" fill="#f5a524"><animate attributeName="opacity" values=".35;1;.35" dur="2.4s" repeatCount="indefinite"/></rect>
+<g fill="#f5a524"><circle r="3.5"><animateMotion dur="3s" repeatCount="indefinite" path="M82 66Q128 92 175 66"/></circle><circle r="3.5"><animateMotion dur="4s" repeatCount="indefinite" path="M225 66Q300 72 350 105"/></circle></g></svg>`;
+function view(){const I=build(),R={user:"User",admin:"Admin",sup:"Supervisor"};
+if(pending)return loginView();if(!role)return`<div class="land">${HERO}<h1>⚡ LumenOps</h1><p class="m">Smarter outage handling for BESCOM. Who are you?</p>
+<button class="rc" data-a="role" data-r="user"><b>I’m a user</b><span>Report a problem, view and pay your bill, apply for a new connection</span></button>
+<button class="rc" data-a="role" data-r="admin"><b>Admin</b><span>Assign crews, see the map and insights, review connection requests</span></button>
+<button class="rc" data-a="role" data-r="sup"><b>Supervisor</b><span>Check the finished work and mark it completed</span></button>
+<p class="flow"><b>How it works:</b> user reports, admin assigns a crew, the crew does the work, supervisor marks it completed, and the user sees the update.</p>
+${authMsg&&!pending?`<div class="note">${esc(authMsg)}</div>`:""}<p class="ft">Admins and supervisors must sign in. Demo accounts: admin / Admin@demo1 and supervisor / Super@demo1. This login only imitates the real one: in the real system the check happens on the server and passwords are never shown.</p></div>`;
+const top=`<div class="top"><b><span class="bolt">⚡</span> LumenOps</b><span class="chip">${sess?esc(sess.user)+" · "+R[role]:R[role]}</span><button data-a="out">${sess?"Sign out":"Switch role"}</button></div>`;
+if(role==="user"){if(utab==="bill")return top+utabs()+billView();if(utab==="new")return top+utabs()+newView();const my=mine&&C.find(c=>c.id===mine),inc=my&&I.find(i=>i.M.includes(my));
+return top+utabs()+`<div class="ph"><div class="c"><h2>Report a power problem</h2><label for="ty">What issue are you facing?</label><select id="ty">${opts(ISSUES,draft.ty)}</select>
+<div id="firew" class="note" style="display:${(draft.ty||"").startsWith("Fire")?"block":"none"};border-left-color:var(--rd)"><b>Fire is an emergency.</b> Keep away from the equipment and do not touch wires. Call 101 (fire) or 112 (emergency) first, then report it here.</div>
+<div id="othw" style="display:${(draft.ty||"").startsWith("Other")?"block":"none"}"><label class="m" for="ot" style="display:block;margin-top:8px">Describe the problem you are facing</label><textarea id="ot" rows="3" maxlength="200">${esc(draft.ot||"")}</textarea></div>
+<label for="sp">Where are you?</label><select id="sp">${Object.entries(PLACES).map(([k,l])=>`<option value="${k}"${draft.sp===k?" selected":""}>${l}</option>`).join("")}<option value="X"${draft.sp==="X"?" selected":""}>Other (type a landmark)</option></select>
+<div id="spow" style="display:${draft.sp==="X"?"block":"none"}"><label class="m" for="spo" style="display:block;margin-top:8px">Type the landmark or area</label><input id="spo" maxlength="60" value="${esc(draft.spo||"")}"><div class="m">Demo: the map puts it at a random spot.</div></div>${formErr?`<div class="m" style="color:var(--rd);margin-top:8px">${esc(formErr)}</div>`:""}
+<button class="b w2" data-a="rep">Report</button><button class="w2" data-a="many">Add 10 neighbours reporting too</button></div>
+${inc?`<div class="c"><b>Reference C${String(my.id).padStart(4,"0")}</b> · ${my.ty}<div class="st">${["Reported","Crew assigned","Completed"].map((o,k)=>`<i class="${k<=ORD.indexOf(inc.st)?"o":""}">${o}</i>`).join("")}</div>
+<div>${MSG[inc.st].replace("{c}",inc.crew||"A crew")}</div>${inc.pl?`<div class="note">A planned maintenance outage is scheduled in your area.</div>`:""}${inc.st==="Completed"?rateView(my.id):""}${inc.n>1?`<div class="m" style="margin-top:6px">Grouped with ${inc.n-1} other reports in your area, so the team sees one fault.</div>`:""}</div>`:`<p class="m">Your report status will appear here.</p>`}</div>`}
+if(role==="admin"){if(atab==="map")return top+atabs()+insights(I);if(atab==="apps")return top+atabs()+adminApps();if(atab==="log")return top+atabs()+logView();const w=I.filter(i=>i.st==="Pending"),p=I.filter(i=>i.st==="Crew assigned");
+return top+atabs()+`<h2>Assign crews</h2><div class="m">Highest priority first. Pick a crew and assign.</div><div class="sec">Waiting for a crew (${w.length})</div>
+${w.map(i=>card(i,`<div class="row"><select id="cw-${i.id}">${opts(CREWS)}</select><button class="b" data-a="asg" data-id="${i.id}">Assign crew</button></div>`)).join("")||`<p class="m">Nothing waiting. Switch to User and report an outage.</p>`}
+<div class="sec">Crew on the way (${p.length})</div>${p.map(i=>card(i,`<div class="note">${i.crew} is working on this. The supervisor will mark it completed.</div>`)).join("")||`<p class="m">None yet.</p>`}`}
+const p=I.filter(i=>i.st==="Crew assigned"),d=I.filter(i=>i.st==="Completed");
+return top+`<h2>Verify and complete</h2><div class="m">When a crew has finished, check the work and mark it completed.</div><div class="sec">Work to verify (${p.length})</div>
+${p.map(i=>card(i,`<div class="m">Assigned to ${i.crew}</div><div class="row"><select id="sc-${i.id}">${opts(CAUSES)}</select><button class="b" data-a="done" data-id="${i.id}">Mark completed</button></div>`)).join("")||`<p class="m">Nothing to verify. The admin has to assign a crew first.</p>`}
+<div class="sec">Completed (${d.length})</div>${d.map(i=>`<div class="c"><b>${i.id}</b> <span class="m">· ${i.n} reports · ${i.crew} · ${i.cause}${i.M.map(c=>rated[c.id]).find(Boolean)?" · rated "+i.M.map(c=>rated[c.id]).find(Boolean)+"/5":""}</span></div>`).join("")||`<p class="m">None yet.</p>`}`}
+let lang="en";try{lang=localStorage.getItem("lo_lang")||"en"}catch(e){}
+const KN={"Smarter outage handling for BESCOM. Who are you?":"ಬೆಸ್ಕಾಂಗಾಗಿ ಚುರುಕಾದ ವಿದ್ಯುತ್ ಕಡಿತ ನಿರ್ವಹಣೆ. ನೀವು ಯಾರು?","I’m a user":"ನಾನು ಬಳಕೆದಾರ","User":"ಬಳಕೆದಾರ","Report a problem, view and pay your bill, apply for a new connection":"ಸಮಸ್ಯೆ ವರದಿ ಮಾಡಿ, ಬಿಲ್ ನೋಡಿ ಮತ್ತು ಪಾವತಿಸಿ, ಹೊಸ ಸಂಪರ್ಕಕ್ಕೆ ಅರ್ಜಿ ಹಾಕಿ","Admin":"ನಿರ್ವಾಹಕ","Supervisor":"ಮೇಲ್ವಿಚಾರಕ","Assign crews, see the map and insights, review connection requests":"ಸಿಬ್ಬಂದಿ ತಂಡಗಳನ್ನು ನೇಮಿಸಿ, ನಕ್ಷೆ ಮತ್ತು ಒಳನೋಟಗಳನ್ನು ನೋಡಿ, ಸಂಪರ್ಕ ವಿನಂತಿಗಳನ್ನು ಪರಿಶೀಲಿಸಿ","Check the finished work and mark it completed":"ಮುಗಿದ ಕೆಲಸವನ್ನು ಪರಿಶೀಲಿಸಿ ಪೂರ್ಣಗೊಂಡಿದೆ ಎಂದು ಗುರುತಿಸಿ","How it works:":"ಇದು ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ:","user reports, admin assigns a crew, the crew does the work, supervisor marks it completed, and the user sees the update.":"ಬಳಕೆದಾರ ವರದಿ ಮಾಡುತ್ತಾರೆ, ನಿರ್ವಾಹಕ ತಂಡವನ್ನು ನೇಮಿಸುತ್ತಾರೆ, ತಂಡ ಕೆಲಸ ಮಾಡುತ್ತದೆ, ಮೇಲ್ವಿಚಾರಕ ಪೂರ್ಣಗೊಂಡಿದೆ ಎಂದು ಗುರುತಿಸುತ್ತಾರೆ, ಮತ್ತು ಬಳಕೆದಾರರಿಗೆ ಮಾಹಿತಿ ಸಿಗುತ್ತದೆ.","Admins and supervisors must sign in. Demo accounts: admin / Admin@demo1 and supervisor / Super@demo1. This login only imitates the real one: in the real system the check happens on the server and passwords are never shown.":"ನಿರ್ವಾಹಕರು ಮತ್ತು ಮೇಲ್ವಿಚಾರಕರು ಸೈನ್ ಇನ್ ಆಗಬೇಕು. ಡೆಮೊ ಖಾತೆಗಳು: admin / Admin@demo1 ಮತ್ತು supervisor / Super@demo1. ಇದು ನಿಜವಾದ ಲಾಗಿನ್‌ನ ಅನುಕರಣೆ ಮಾತ್ರ: ನಿಜವಾದ ವ್ಯವಸ್ಥೆಯಲ್ಲಿ ಪರಿಶೀಲನೆ ಸರ್ವರ್‌ನಲ್ಲಿ ನಡೆಯುತ್ತದೆ ಮತ್ತು ಪಾಸ್‌ವರ್ಡ್‌ಗಳನ್ನು ಎಂದಿಗೂ ತೋರಿಸುವುದಿಲ್ಲ.","Switch role":"ಪಾತ್ರ ಬದಲಿಸಿ","Sign out":"ಸೈನ್ ಔಟ್","Report outage":"ಸಮಸ್ಯೆ ವರದಿ","My bill":"ನನ್ನ ಬಿಲ್","New connection":"ಹೊಸ ಸಂಪರ್ಕ",
+"Report a power problem":"ವಿದ್ಯುತ್ ಸಮಸ್ಯೆ ವರದಿ ಮಾಡಿ","What issue are you facing?":"ನೀವು ಯಾವ ಸಮಸ್ಯೆ ಎದುರಿಸುತ್ತಿದ್ದೀರಿ?","No power":"ವಿದ್ಯುತ್ ಇಲ್ಲ","Partial power":"ಭಾಗಶಃ ವಿದ್ಯುತ್","Low voltage":"ಕಡಿಮೆ ವೋಲ್ಟೇಜ್","Fire or sparks near a street light or transformer":"ಬೀದಿ ದೀಪ ಅಥವಾ ಟ್ರಾನ್ಸ್‌ಫಾರ್ಮರ್ ಬಳಿ ಬೆಂಕಿ ಅಥವಾ ಕಿಡಿ","Other (describe it)":"ಇತರೆ (ವಿವರಿಸಿ)","Fire is an emergency.":"ಬೆಂಕಿ ತುರ್ತು ಪರಿಸ್ಥಿತಿ.","Keep away from the equipment and do not touch wires. Call 101 (fire) or 112 (emergency) first, then report it here.":"ಉಪಕರಣದಿಂದ ದೂರ ಇರಿ ಮತ್ತು ತಂತಿಗಳನ್ನು ಮುಟ್ಟಬೇಡಿ. ಮೊದಲು 101 (ಅಗ್ನಿಶಾಮಕ) ಅಥವಾ 112 (ತುರ್ತು) ಗೆ ಕರೆ ಮಾಡಿ, ನಂತರ ಇಲ್ಲಿ ವರದಿ ಮಾಡಿ.","Describe the problem you are facing":"ನೀವು ಎದುರಿಸುತ್ತಿರುವ ಸಮಸ್ಯೆಯನ್ನು ವಿವರಿಸಿ","Where are you?":"ನೀವು ಎಲ್ಲಿದ್ದೀರಿ?","Near a hospital":"ಆಸ್ಪತ್ರೆ ಬಳಿ","Near a temple":"ದೇವಸ್ಥಾನದ ಬಳಿ","Near a school or college":"ಶಾಲೆ ಅಥವಾ ಕಾಲೇಜಿನ ಬಳಿ","Near an industry":"ಕೈಗಾರಿಕೆಯ ಬಳಿ","Near a water pumping station":"ನೀರು ಪಂಪಿಂಗ್ ಕೇಂದ್ರದ ಬಳಿ","Planned maintenance area":"ನಿಗದಿತ ನಿರ್ವಹಣಾ ಪ್ರದೇಶ","Other (type a landmark)":"ಇತರೆ (ಹೆಗ್ಗುರುತು ಬರೆಯಿರಿ)","Type the landmark or area":"ಹೆಗ್ಗುರುತು ಅಥವಾ ಪ್ರದೇಶ ಬರೆಯಿರಿ","Demo: the map puts it at a random spot.":"ಡೆಮೊ: ನಕ್ಷೆಯು ಅದನ್ನು ಯಾದೃಚ್ಛಿಕ ಸ್ಥಳದಲ್ಲಿ ತೋರಿಸುತ್ತದೆ.","Please describe the problem you are facing.":"ನೀವು ಎದುರಿಸುತ್ತಿರುವ ಸಮಸ್ಯೆಯನ್ನು ದಯವಿಟ್ಟು ವಿವರಿಸಿ.","Please type a landmark or area.":"ದಯವಿಟ್ಟು ಹೆಗ್ಗುರುತು ಅಥವಾ ಪ್ರದೇಶ ಬರೆಯಿರಿ.","Report":"ವರದಿ ಮಾಡಿ","Add 10 neighbours reporting too":"ನೆರೆಹೊರೆಯ 10 ಮಂದಿಯೂ ವರದಿ ಮಾಡಿದಂತೆ ಸೇರಿಸಿ","Your report status will appear here.":"ನಿಮ್ಮ ವರದಿಯ ಸ್ಥಿತಿ ಇಲ್ಲಿ ಕಾಣಿಸುತ್ತದೆ.","Reported":"ವರದಿಯಾಗಿದೆ","Crew assigned":"ತಂಡ ನೇಮಿಸಲಾಗಿದೆ","Completed":"ಪೂರ್ಣಗೊಂಡಿದೆ","Received. An admin will assign a crew.":"ಸ್ವೀಕರಿಸಲಾಗಿದೆ. ನಿರ್ವಾಹಕರು ತಂಡವನ್ನು ನೇಮಿಸುತ್ತಾರೆ.","Work completed and power restored. If it is still out, please report again.":"ಕೆಲಸ ಪೂರ್ಣಗೊಂಡಿದೆ ಮತ್ತು ವಿದ್ಯುತ್ ಮರುಸ್ಥಾಪಿಸಲಾಗಿದೆ. ಇನ್ನೂ ಇಲ್ಲದಿದ್ದರೆ ದಯವಿಟ್ಟು ಮತ್ತೆ ವರದಿ ಮಾಡಿ.","A planned maintenance outage is scheduled in your area.":"ನಿಮ್ಮ ಪ್ರದೇಶದಲ್ಲಿ ನಿಗದಿತ ನಿರ್ವಹಣಾ ವಿದ್ಯುತ್ ಕಡಿತ ಇದೆ.","Rate the restoration:":"ವಿದ್ಯುತ್ ಮರುಸ್ಥಾಪನೆಗೆ ರೇಟಿಂಗ್ ನೀಡಿ:",
+"View and pay your bill":"ನಿಮ್ಮ ಬಿಲ್ ನೋಡಿ ಮತ್ತು ಪಾವತಿಸಿ","Demo. Type any RR number and the demo makes up a sample bill for it. Real bills would come from BESCOM’s billing system.":"ಡೆಮೊ. ಯಾವುದೇ ಆರ್‌ಆರ್ ಸಂಖ್ಯೆ ಬರೆಯಿರಿ, ಡೆಮೊ ಅದಕ್ಕೆ ಒಂದು ಮಾದರಿ ಬಿಲ್ ರಚಿಸುತ್ತದೆ. ನಿಜವಾದ ಬಿಲ್‌ಗಳು ಬೆಸ್ಕಾಂ ಬಿಲ್ಲಿಂಗ್ ವ್ಯವಸ್ಥೆಯಿಂದ ಬರುತ್ತವೆ.","RR number":"ಆರ್‌ಆರ್ ಸಂಖ್ಯೆ","Show my bill":"ನನ್ನ ಬಿಲ್ ತೋರಿಸಿ","RR-DEMO-1042 always shows the same sample account. Any new number gets a new random bill.":"RR-DEMO-1042 ಯಾವಾಗಲೂ ಅದೇ ಮಾದರಿ ಖಾತೆ ತೋರಿಸುತ್ತದೆ. ಹೊಸ ಸಂಖ್ಯೆಗೆ ಹೊಸ ಯಾದೃಚ್ಛಿಕ ಬಿಲ್ ಸಿಗುತ್ತದೆ.","Enter an RR number with 4 to 20 letters, digits or dashes, for example RR-123456.":"4 ರಿಂದ 20 ಅಕ್ಷರ, ಅಂಕಿ ಅಥವಾ ಡ್ಯಾಶ್‌ಗಳಿರುವ ಆರ್‌ಆರ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ, ಉದಾಹರಣೆಗೆ RR-123456.","Paid":"ಪಾವತಿಸಲಾಗಿದೆ","Payable":"ಪಾವತಿಸಬೇಕು","Pay with (sandbox)":"ಪಾವತಿ ವಿಧಾನ (ಡೆಮೊ)","Use a different RR number":"ಬೇರೆ ಆರ್‌ಆರ್ ಸಂಖ್ಯೆ ಬಳಸಿ","Usage, last 6 months":"ಬಳಕೆ, ಕಳೆದ 6 ತಿಂಗಳು","Month":"ತಿಂಗಳು","Units":"ಯೂನಿಟ್","Amount":"ಮೊತ್ತ","Status":"ಸ್ಥಿತಿ","Jun":"ಜೂನ್","Jul":"ಜುಲೈ","Aug":"ಆಗಸ್ಟ್","Sep":"ಸೆಪ್ಟೆಂ","Oct":"ಅಕ್ಟೋ","Nov":"ನವೆಂ",
+"Apply for a new connection":"ಹೊಸ ಸಂಪರ್ಕಕ್ಕೆ ಅರ್ಜಿ ಸಲ್ಲಿಸಿ","Demo form. The PDF stays in this browser tab and is not uploaded anywhere.":"ಡೆಮೊ ಫಾರ್ಮ್. PDF ಈ ಬ್ರೌಸರ್ ಟ್ಯಾಬ್‌ನಲ್ಲೇ ಇರುತ್ತದೆ, ಎಲ್ಲಿಗೂ ಅಪ್‌ಲೋಡ್ ಆಗುವುದಿಲ್ಲ.","Full name":"ಪೂರ್ಣ ಹೆಸರು","Address":"ವಿಳಾಸ","Connection type":"ಸಂಪರ್ಕದ ವಿಧ","Domestic":"ಗೃಹ ಬಳಕೆ","Commercial":"ವಾಣಿಜ್ಯ","Required load (kW)":"ಅಗತ್ಯ ಲೋಡ್ (kW)","Phone number":"ಫೋನ್ ಸಂಖ್ಯೆ","Supporting document type":"ಬೆಂಬಲ ದಾಖಲೆಯ ವಿಧ","ID proof":"ಗುರುತಿನ ಪುರಾವೆ","Address proof":"ವಿಳಾಸ ಪುರಾವೆ","Ownership or tenancy proof":"ಮಾಲೀಕತ್ವ ಅಥವಾ ಬಾಡಿಗೆ ಪುರಾವೆ","Attach the document (PDF only, up to 2 MB)":"ದಾಖಲೆಯನ್ನು ಲಗತ್ತಿಸಿ (PDF ಮಾತ್ರ, 2 MB ವರೆಗೆ)","Submit application":"ಅರ್ಜಿ ಸಲ್ಲಿಸಿ","My applications":"ನನ್ನ ಅರ್ಜಿಗಳು","Please enter your name and address.":"ದಯವಿಟ್ಟು ನಿಮ್ಮ ಹೆಸರು ಮತ್ತು ವಿಳಾಸ ನಮೂದಿಸಿ.","Enter a load between 0 and 50 kW.":"0 ರಿಂದ 50 kW ನಡುವಿನ ಲೋಡ್ ನಮೂದಿಸಿ.","Enter a valid phone number (10 to 13 digits).":"ಸರಿಯಾದ ಫೋನ್ ಸಂಖ್ಯೆ ನಮೂದಿಸಿ (10 ರಿಂದ 13 ಅಂಕಿ).","Please attach one supporting document (PDF).":"ದಯವಿಟ್ಟು ಒಂದು ಬೆಂಬಲ ದಾಖಲೆಯನ್ನು (PDF) ಲಗತ್ತಿಸಿ.","The document must be a PDF file.":"ದಾಖಲೆ PDF ಫೈಲ್ ಆಗಿರಬೇಕು.","The PDF is larger than 2 MB. Please attach a smaller file.":"PDF 2 MB ಗಿಂತ ದೊಡ್ಡದಾಗಿದೆ. ದಯವಿಟ್ಟು ಚಿಕ್ಕ ಫೈಲ್ ಲಗತ್ತಿಸಿ.","Submitted":"ಸಲ್ಲಿಸಲಾಗಿದೆ","Approved":"ಅನುಮೋದಿಸಲಾಗಿದೆ","Rejected":"ತಿರಸ್ಕರಿಸಲಾಗಿದೆ",
+"Staff only.":"ಸಿಬ್ಬಂದಿಗೆ ಮಾತ್ರ.","Username":"ಬಳಕೆದಾರ ಹೆಸರು","Password":"ಪಾಸ್‌ವರ್ಡ್","Sign in":"ಸೈನ್ ಇನ್","Back":"ಹಿಂದೆ","Wrong username or password.":"ತಪ್ಪಾದ ಬಳಕೆದಾರ ಹೆಸರು ಅಥವಾ ಪಾಸ್‌ವರ್ಡ್.","Your session expired. Please sign in again.":"ನಿಮ್ಮ ಸೆಷನ್ ಮುಗಿದಿದೆ. ದಯವಿಟ್ಟು ಮತ್ತೆ ಸೈನ್ ಇನ್ ಮಾಡಿ.","Not allowed for this role.":"ಈ ಪಾತ್ರಕ್ಕೆ ಅನುಮತಿ ಇಲ್ಲ.","Demo only. Accounts: admin / Admin@demo1 and supervisor / Super@demo1. After 3 wrong tries the form locks for 30 seconds and a session lasts 10 minutes, like the real system’s limits.":"ಡೆಮೊ ಮಾತ್ರ. ಖಾತೆಗಳು: admin / Admin@demo1 ಮತ್ತು supervisor / Super@demo1. 3 ತಪ್ಪು ಪ್ರಯತ್ನಗಳ ನಂತರ ಫಾರ್ಮ್ 30 ಸೆಕೆಂಡ್ ಲಾಕ್ ಆಗುತ್ತದೆ ಮತ್ತು ಸೆಷನ್ 10 ನಿಮಿಷ ಇರುತ್ತದೆ, ನಿಜವಾದ ವ್ಯವಸ್ಥೆಯ ಮಿತಿಗಳಂತೆ.",
+"Assign crews":"ತಂಡಗಳನ್ನು ನೇಮಿಸಿ","Map and insights":"ನಕ್ಷೆ ಮತ್ತು ಒಳನೋಟ","Connection requests":"ಸಂಪರ್ಕ ವಿನಂತಿಗಳು","Activity log":"ಚಟುವಟಿಕೆ ದಾಖಲೆ","Assign crew":"ತಂಡ ನೇಮಿಸಿ","Mark completed":"ಪೂರ್ಣಗೊಂಡಿದೆ ಎಂದು ಗುರುತಿಸಿ","Approve":"ಅನುಮೋದಿಸಿ","Reject":"ತಿರಸ್ಕರಿಸಿ","Verify and complete":"ಪರಿಶೀಲಿಸಿ ಮತ್ತು ಪೂರ್ಣಗೊಳಿಸಿ","Waiting for a crew":"ತಂಡಕ್ಕಾಗಿ ಕಾಯುತ್ತಿದೆ","Crew on the way":"ತಂಡ ಬರುತ್ತಿದೆ","Work to verify":"ಪರಿಶೀಲಿಸಬೇಕಾದ ಕೆಲಸ"};
+const RULES=[[/^Reference (C\d+)$/,(m,a)=>"ಉಲ್ಲೇಖ "+a],[/^· (.+)$/,(m,a)=>"· "+tr(a)],[/^(.+) is on the way to your area\.$/,(m,a)=>a+" ನಿಮ್ಮ ಪ್ರದೇಶಕ್ಕೆ ಬರುತ್ತಿದೆ."],
+[/^Grouped with (\d+) other reports in your area, so the team sees one fault\.$/,(m,a)=>"ನಿಮ್ಮ ಪ್ರದೇಶದ ಇತರ "+a+" ವರದಿಗಳೊಂದಿಗೆ ಗುಂಪು ಮಾಡಲಾಗಿದೆ, ಆದ್ದರಿಂದ ತಂಡಕ್ಕೆ ಒಂದೇ ದೋಷ ಕಾಣುತ್ತದೆ."],[/^Thanks for rating: (\d)\/5$/,(m,a)=>"ರೇಟಿಂಗ್‌ಗೆ ಧನ್ಯವಾದಗಳು: "+a+"/5"],
+[/^RR number (.+) · sample tariff, not BESCOM’s real rates$/,(m,a)=>"ಆರ್‌ಆರ್ ಸಂಖ್ಯೆ "+a+" · ಮಾದರಿ ದರ, ಬೆಸ್ಕಾಂನ ನಿಜವಾದ ದರವಲ್ಲ"],[/^November 2026 · (\d+) units · due 30 Nov ·$/,(m,a)=>"ನವೆಂಬರ್ 2026 · "+a+" ಯೂನಿಟ್ · ಕೊನೆಯ ದಿನಾಂಕ 30 ನವೆಂ ·"],
+[/^Paid by (.+)\. Receipt (.+)\. Demo: no money moved\.$/,(m,a,b)=>a+" ಮೂಲಕ ಪಾವತಿಸಲಾಗಿದೆ. ರಸೀದಿ "+b+". ಡೆಮೊ: ಯಾವುದೇ ಹಣ ವರ್ಗಾವಣೆಯಾಗಿಲ್ಲ."],[/^Pay (₹\d+) \(demo\)$/,(m,a)=>a+" ಪಾವತಿಸಿ (ಡೆಮೊ)"],
+[/^Document: (.+?) · (.+)$/,(m,a,b)=>"ದಾಖಲೆ: "+tr(a)+" · "+b],[/^(Admin|Supervisor) sign in$/,(m,a)=>tr(a)+" ಸೈನ್ ಇನ್"],[/^Too many attempts\. Try again in (\d+) s\.$/,(m,a)=>"ಹಲವು ಪ್ರಯತ್ನಗಳು. "+a+" ಸೆ. ನಂತರ ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ."],
+[/^(.+) · (Admin|Supervisor)$/,(m,a,b)=>a+" · "+tr(b)],[/^(Waiting for a crew|Crew on the way|Work to verify|Completed) \((\d+)\)$/,(m,a,b)=>tr(a)+" ("+b+")"]];
+function tr(x){if(KN[x])return KN[x];for(const [re,f] of RULES){const m=re.exec(x);if(m)return f(...m)}return x}
+const kn=h=>h.replace(/>([^<>]+)</g,(m,x)=>{const c=x.trim();if(!c)return m;const i=x.indexOf(c);return">"+x.slice(0,i)+tr(c)+x.slice(i+c.length)+"<"});
+const MON=["Jun","Jul","Aug","Sep","Oct","Nov"];
+function billView(){
+if(!billRR)return`<div class="ph"><div class="c"><h2>View and pay your bill</h2><div class="m">Demo. Type any RR number and the demo makes up a sample bill for it. Real bills would come from BESCOM’s billing system.</div>
+<label class="m" for="rrn" style="display:block;margin-top:10px">RR number</label><input id="rrn" placeholder="RR-123456" autocomplete="off">
+${billErr?`<div class="m" style="color:var(--rd);margin-top:8px">${esc(billErr)}</div>`:""}<button class="b w2" data-a="rr">Show my bill</button>
+<div class="m" style="margin-top:8px">RR-DEMO-1042 always shows the same sample account. Any new number gets a new random bill.</div></div></div>`;
+const d=BILLDB[billRR],U=d.units,amt=tariff(U[5]),mx=Math.max(...U);
+return`<div class="ph"><div class="c"><h2>My bill</h2><div class="m">RR number ${esc(billRR)} · sample tariff, not BESCOM’s real rates</div>
+<div style="font-size:30px;font-weight:bold;margin:10px 0">₹${amt}</div><div class="m">November 2026 · ${U[5]} units · due 30 Nov · ${d.paid?`<span class="paid">Paid</span>`:`<span class="due">Payable</span>`}</div>
+${d.paid?`<div class="note">Paid by ${d.paid.m}. Receipt ${d.paid.ref}. Demo: no money moved.</div>`:`<label class="m" for="pm" style="display:block;margin-top:12px">Pay with (sandbox)</label><select id="pm" style="width:100%"><option>UPI</option><option>Card</option><option>Net banking</option></select><button class="b w2" data-a="pay">Pay ₹${amt} (demo)</button>`}
+<button class="w2" data-a="rrout">Use a different RR number</button></div>
+<div class="c"><h2>Usage, last 6 months</h2><div class="bars">${U.map(u=>`<div style="height:${u/mx*100}%"><span>${u}</span></div>`).join("")}</div><div class="mons">${MON.map(m=>`<span>${m}</span>`).join("")}</div>
+<table class="tb" style="margin-top:12px"><tr><th>Month</th><th>Units</th><th>Amount</th><th>Status</th></tr>${MON.map((m,i)=>[m,U[i],i]).reverse().map(([m,u,i])=>{const due=i===5&&!d.paid;return`<tr><td>${m}</td><td>${u}</td><td>₹${tariff(u)}</td><td class="${due?"due":"paid"}">${due?"Payable":"Paid"}</td></tr>`}).join("")}</table></div></div>`}
+const ACC={admin:{u:"admin",p:"Admin@demo1"},sup:{u:"supervisor",p:"Super@demo1"}},R2={admin:"Admin",sup:"Supervisor"};
+const addLog=(u,a)=>{log.unshift({t:new Date(),u,a});log.length=Math.min(log.length,50)};
+const logout=m=>{sess=null;role="";pending="";authMsg=m||""};
+function loginView(){const lock=Math.max(0,Math.ceil((lockUntil-Date.now())/1000));
+return`<div class="ph"><div class="c"><h2>${R2[pending]} sign in</h2><div class="m">Staff only.</div>
+<label class="m" for="lu" style="display:block;margin-top:10px">Username</label><input id="lu" autocomplete="off">
+<label class="m" for="lp" style="display:block;margin-top:10px">Password</label><input id="lp" type="password" autocomplete="off">
+${authMsg?`<div class="m" style="color:var(--rd);margin-top:8px">${esc(authMsg)}</div>`:""}${lock?`<div class="m" style="color:var(--rd)">Too many attempts. Try again in ${lock} s.</div>`:""}
+<button class="b w2" data-a="login">Sign in</button><button class="w2" data-a="role" data-r="">Back</button></div>
+<div class="note">Demo only. Accounts: admin / Admin@demo1 and supervisor / Super@demo1. After 3 wrong tries the form locks for 30 seconds and a session lasts 10 minutes, like the real system’s limits.</div></div>`}
+const logView=()=>`<h2>Activity log</h2><div class="m">Who did what, newest first.</div><div class="c" style="margin-top:10px">${log.length?`<table class="tb"><tr><th>Time</th><th>Who</th><th>Action</th></tr>${log.map(l=>`<tr><td>${l.t.toLocaleTimeString("en-IN")}</td><td>${esc(l.u)}</td><td>${esc(l.a)}</td></tr>`).join("")}</table>`:`<div class="m">Nothing yet.</div>`}</div>`;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const tabs=(cur,list,act)=>`<div class="tabs">${list.map(([k,l])=>`<button class="${cur===k?"on":""}" data-a="${act}" data-k="${k}">${l}</button>`).join("")}</div>`;
+const utabs=()=>tabs(utab,[["rep","Report outage"],["bill","My bill"],["new","New connection"]],"ut");
+const atabs=()=>tabs(atab,[["inc","Assign crews"],["map","Map and insights"],["apps","Connection requests"],["log","Activity log"]],"at");
+const tariff=u=>Math.round(60+Math.min(u,50)*4+Math.max(Math.min(u-50,50),0)*5.5+Math.max(u-100,0)*7);
+const BILLS=[["Jun",118],["Jul",126],["Aug",141],["Sep",152],["Oct",133],["Nov",127]];
+function billViewOld(){const cur=BILLS[5],amt=tariff(cur[1]),mx=Math.max(...BILLS.map(b=>b[1]));
+return`<div class="ph"><div class="c"><h2>My bill</h2><div class="m">Sample account RR-DEMO-1042. Sample tariff, not BESCOM’s real rates.</div>
+<div style="font-size:30px;font-weight:bold;margin:10px 0">₹${amt}</div><div class="m">November 2026 · ${cur[1]} units · due 30 Nov · ${paid.Nov?`<span class="paid">Paid</span>`:`<span class="due">Unpaid</span>`}</div>
+${paid.Nov?`<div class="note">Paid by ${paid.Nov.m}. Receipt ${paid.Nov.ref}. This is a demo: no money moved.</div>`:`<label class="m" for="pm" style="display:block;margin-top:12px">Pay with (sandbox)</label><select id="pm" style="width:100%"><option>UPI</option><option>Card</option><option>Net banking</option></select><button class="b w2" data-a="pay">Pay ₹${amt} (demo)</button>`}</div>
+<div class="c"><h2>Usage, last 6 months</h2><div class="bars">${BILLS.map(b=>`<div style="height:${b[1]/mx*100}%"><span>${b[1]}</span></div>`).join("")}</div><div class="mons">${BILLS.map(b=>`<span>${b[0]}</span>`).join("")}</div>
+<table class="tb" style="margin-top:12px"><tr><th>Month</th><th>Units</th><th>Amount</th><th>Status</th></tr>${BILLS.slice().reverse().map(b=>{const u=b[0]==="Nov"&&!paid.Nov;return`<tr><td>${b[0]}</td><td>${b[1]}</td><td>₹${tariff(b[1])}</td><td class="${u?"due":"paid"}">${u?"Unpaid":"Paid"}</td></tr>`}).join("")}</table></div></div>`}
+function newView(){const L=(i,t)=>`<label class="m" for="${i}" style="display:block;margin-top:10px">${t}</label>`;
+return`<div class="ph"><div class="c"><h2>Apply for a new connection</h2><div class="m">Demo form. The PDF stays in this browser tab and is not uploaded anywhere.</div>
+${L("an","Full name")}<input id="an" value="${esc(appDraft.name||"")}">${L("aa","Address")}<input id="aa" value="${esc(appDraft.addr||"")}">${L("at2","Connection type")}<select id="at2" style="width:100%"><option>Domestic</option><option>Commercial</option></select>
+${L("al","Required load (kW)")}<input id="al" inputmode="decimal" value="${esc(appDraft.kw||"3")}">${L("ap","Phone number")}<input id="ap" inputmode="tel" value="${esc(appDraft.ph||"")}">
+${L("ad","Supporting document type")}<select id="ad" style="width:100%"><option>ID proof</option><option>Address proof</option><option>Ownership or tenancy proof</option></select>${L("af","Attach the document (PDF only, up to 2 MB)")}<input id="af" type="file" accept="application/pdf,.pdf">
+<div class="m" style="color:var(--rd);margin-top:8px">${esc(appErr)}</div><button class="b w2" data-a="apply">Submit application</button></div>
+${apps.length?`<div class="c"><h2>My applications</h2>${apps.map(a=>`<div class="rw"><span><b>${a.ref}</b> · ${esc(a.name)} · ${a.kw} kW<br><span class="m">${esc(a.addr)}</span><br><span class="m">Document: ${esc(a.doc.type)} · ${esc(a.doc.name)}</span></span><span class="${a.st==="Approved"?"paid":a.st==="Rejected"?"due":"m"}">${a.st}</span></div>`).join("")}</div>`:""}</div>`}
+const adminApps=()=>`<h2>Connection requests</h2><div class="m">Review new connection applications.</div><div style="height:10px"></div>`+(apps.length?apps.map(a=>`<div class="c"><b>${a.ref}</b> · ${a.type} · ${a.kw} kW<div>${esc(a.name)}</div><div class="m">${esc(a.addr)} · ${esc(a.phone)}</div><div class="m">Document: ${esc(a.doc.type)} · ${esc(a.doc.name)} (${Math.max(1,Math.round(a.doc.size/1024))} KB)</div>${a.st==="Submitted"?`<div class="row"><button class="b" data-a="appr" data-ref="${a.ref}" data-v="Approved">Approve</button><button data-a="appr" data-ref="${a.ref}" data-v="Rejected">Reject</button></div>`:`<div class="${a.st==="Approved"?"paid":"due"}" style="margin-top:8px">${a.st}</div>`}</div>`).join(""):`<p class="m">No applications yet. Switch to User and submit one.</p>`);
+const rateView=id=>rated[id]?`<div class="m" style="margin-top:8px">Thanks for rating: ${rated[id]}/5</div>`:`<div class="stars" style="margin-top:10px"><div class="m">Rate the restoration:</div>${[1,2,3,4,5].map(n=>`<button data-a="rate" data-id="${id}" data-n="${n}">${n}</button>`).join("")}</div>`;
+function verdict(i){if(!i.dt)return"No transformer within 600 m. Check the field map.";if(trip[i.dt.f])return`Feeder ${i.dt.f} was auto-isolated by the automation system. Healthy sections come back by themselves, so hold the fault crew.`;if(i.pl)return"Planned work zone. Check the shutdown schedule before sending a fault crew.";return`Automation shows feeder ${i.dt.f} healthy, so the fault is likely at the transformer or low-voltage side. Send a transformer crew to ${i.dt.id}.`}
+const risk=(d,I)=>Math.min(100,d.fail*15+Math.min(d.m/10,30)+(I.some(i=>i.dt===d&&i.st!=="Completed")?25:0));
+function insights(I){const X=g=>(g-77.55)/.23*560+20,Y=a=>360-(a-12.9)/.16*340;let s="";
+for(let i=0;i<5;i++)s+=`<path d="M20 ${20+i*85}H580M${20+i*140} 20V360" stroke="#9aa6b8" stroke-opacity=".25"/>`;
+s+=`<circle cx="${X(77.597)}" cy="${Y(13.035)}" r="30" fill="none" stroke="#2f6fd0" stroke-dasharray="5 4" stroke-width="2"/>`;
+DT.forEach(d=>{s+=`${trip[d.f]?`<circle cx="${X(d.ln)}" cy="${Y(d.la)}" r="15" fill="none" stroke="#c0392b" stroke-width="3"/>`:""}<rect x="${X(d.ln)-5}" y="${Y(d.la)-5}" width="10" height="10" fill="#2f6fd0"/><text x="${X(d.ln)+8}" y="${Y(d.la)+17}" font-size="9" fill="#9aa6b8">${d.id}</text>`});
+const s0=I.find(i=>i.id===sel);if(s0&&s0.dt)s+=`<line x1="${X(s0.ln)}" y1="${Y(s0.la)}" x2="${X(s0.dt.ln)}" y2="${Y(s0.dt.la)}" stroke="#e07b1a" stroke-width="2.5" stroke-dasharray="6 4"/>`;
+I.forEach(i=>{const col=i.st==="Completed"?"#9ca3af":{High:"#c0392b",Medium:"#d68910",Low:"#2e8b57"}[i.pr];s+=`<circle data-a="sel" data-id="${i.id}" cx="${X(i.ln)}" cy="${Y(i.la)}" r="${9+Math.sqrt(i.n)*3.5}" fill="${col}" fill-opacity=".5" stroke="${sel===i.id?"#111":col}" stroke-width="${sel===i.id?4:2}" style="cursor:pointer"/>`});
+return`<h2>Map and insights</h2><div class="m" style="margin-bottom:10px">Sample DTLMS and automation data.</div><div class="c"><svg viewBox="0 0 600 380" role="img" aria-label="Map of incidents and transformers">${s}</svg><div class="m" style="margin-top:6px">Circles: incidents (size = reports). Blue squares: transformers. Red ring: feeder tripped. Dashed blue circle: planned work. Click an incident.</div>
+${s0?`<div class="note"><b>${s0.id}</b> · ${s0.n} reports${s0.dt?` · probable transformer ${s0.dt.id}`:""}<br>${verdict(s0)}</div>`:""}</div>
+<div class="c"><h2>Automation feed (simulated)</h2>${["F-11","F-22","F-33","F-44","F-55"].map(f=>`<div class="rw"><span><b>${f}</b> · ${trip[f]?"Tripped":"Healthy"}</span><button data-a="trip" data-f="${f}">${trip[f]?"Restore feeder":"Simulate trip"}</button></div>`).join("")}</div>
+<div class="c"><h2>Transformer health</h2>${DT.map(d=>({d,r:risk(d,I)})).sort((a,b)=>b.r-a.r).map(({d,r})=>{const col=r>=70?"var(--rd)":r>=40?"var(--am)":"var(--gr)";return`<div class="rw"><span style="flex:1"><svg class="ti" viewBox="0 0 70 120" style="color:${col}"><use href="#tr"/></svg><b>${d.id}</b> <span class="m">${d.f} · ${d.fail} failures in 12 months · maintained ${d.m} days ago</span><div class="rk"><i style="width:${r}%;background:${col}"></i></div></span><span style="text-align:right"><b style="color:${col}">${r>=70?"Inspect now":r>=40?"Watch":"OK"}</b>${r>=40&&!wo[d.id]?`<br><button data-a="wo" data-d="${d.id}" style="margin-top:4px;padding:5px 8px;font-size:12px">Raise work order</button>`:wo[d.id]?`<br><span class="m">Work order raised</span>`:""}</span></div>`}).join("")}</div>`}
+function render(){const h=view();document.getElementById("app").innerHTML=lang==="kn"?kn(h):h;document.documentElement.lang=lang;document.querySelectorAll(".lang button").forEach(b=>b.classList.toggle("on",b.dataset.l===lang));if(typeof RM!=="undefined"&&RM)document.querySelectorAll("animateMotion,animate").forEach(n=>n.remove())}
+document.addEventListener("click",e=>{const t=e.target.closest("[data-a]");if(!t)return;const a=t.dataset.a,id=t.dataset.id,v=i=>document.getElementById(i).value,I=build();
+if(a==="lang"){lang=t.dataset.l;try{localStorage.setItem("lo_lang",lang)}catch(e){}render();return}
+if(sess&&Date.now()>sess.exp&&a!=="login"){logout("Your session expired. Please sign in again.");render();return}
+const ADMIN_ONLY=["asg","appr","trip","wo","at","sel"],SUP_ONLY=["done"],USER_ONLY=["rep","many","pay","rr","rrout","apply","rate","ut"];
+if((ADMIN_ONLY.includes(a)&&role!=="admin")||(SUP_ONLY.includes(a)&&role!=="sup")||(USER_ONLY.includes(a)&&role!=="user")){authMsg="Not allowed for this role.";render();return}
+if(a==="role"){const r=t.dataset.r;if(r==="admin"||r==="sup"){if(sess&&sess.role===r)role=r;else{pending=r;role="";authMsg=""}}else{role=r;pending="";authMsg="";if(r==="user"){utab="rep";sess=null}}if(role==="admin")atab="inc"}
+else if(a==="out")logout("")
+else if(a==="login"){const u=v("lu").trim(),p=v("lp");if(Date.now()<lockUntil){render();return}const acc=ACC[pending];
+if(acc&&u===acc.u&&p===acc.p){sess={role:pending,user:u,exp:Date.now()+10*60e3};role=pending;pending="";fails=0;authMsg="";atab="inc";addLog(u,"signed in")}
+else{fails++;authMsg="Wrong username or password.";addLog(u||"unknown","failed sign in");if(fails>=3){lockUntil=Date.now()+30e3;fails=0}}}
+else if(a==="ut")utab=t.dataset.k;else if(a==="at")atab=t.dataset.k;else if(a==="sel")sel=id;
+else if(a==="trip")trip[t.dataset.f]=!trip[t.dataset.f];else if(a==="wo")wo[t.dataset.d]=true;else if(a==="rate")rated[id]=+t.dataset.n;
+else if(a==="pay"){const d=BILLDB[billRR];if(d&&!d.paid)d.paid={m:v("pm"),ref:"PAY-"+String(1000+Math.floor(rnd()*9000))}}
+else if(a==="rr"){const x=(v("rrn")||"").trim().toUpperCase();if(!/^[A-Z0-9-]{4,20}$/.test(x))billErr="Enter an RR number with 4 to 20 letters, digits or dashes, for example RR-123456.";else{billErr="";billRR=x;if(!BILLDB[x])BILLDB[x]={units:Array.from({length:6},()=>90+Math.floor(rnd()*170)),paid:null}}}
+else if(a==="rrout")billRR="";
+else if(a==="appr"){const x=apps.find(y=>y.ref===t.dataset.ref);if(x){x.st=t.dataset.v;addLog(sess.user,t.dataset.v.toLowerCase()+" "+x.ref)}}
+else if(a==="apply"){const name=v("an").trim(),addr=v("aa").trim(),kw=parseFloat(v("al")),ph=v("ap").replace(/[\s+-]/g,""),f=document.getElementById("af").files[0];appDraft={name,addr,kw:v("al"),ph:v("ap")};
+if(!name||!addr)appErr="Please enter your name and address.";else if(!(kw>0&&kw<=50))appErr="Enter a load between 0 and 50 kW.";else if(!/^\d{10,13}$/.test(ph))appErr="Enter a valid phone number (10 to 13 digits).";else if(!f)appErr="Please attach one supporting document (PDF).";else if(!(f.type==="application/pdf"||/\.pdf$/i.test(f.name)))appErr="The document must be a PDF file.";else if(f.size>2*1024*1024)appErr="The PDF is larger than 2 MB. Please attach a smaller file.";
+else{appErr="";appDraft={};apps.push({doc:{type:v("ad"),name:f.name,size:f.size},ref:"APP-"+String(apps.length+1).padStart(4,"0"),name,addr,type:v("at2"),kw,phone:ph,st:"Submitted"})}}
+else if(a==="rep"||a==="many"){const sk=v("sp"),ty0=v("ty"),ot=(v("ot")||"").trim(),spo=(v("spo")||"").trim();draft={ty:ty0,sp:sk,ot,spo};
+if(ty0.startsWith("Other")&&!ot){formErr="Please describe the problem you are facing.";render();return}
+if(sk==="X"&&!spo){formErr="Please type a landmark or area.";render();return}
+formErr="";const p=sk==="X"?[12.93+rnd()*.1,77.57+rnd()*.16]:SP[sk],place=sk==="X"?"Other: "+spo:PLACES[sk];
+for(let k=0;k<(a==="many"?10:1);k++){const c=add(p[0]+(rnd()-.5)*.0008,p[1]+(rnd()-.5)*.0008,0);c.ty=ty0;c.place=place;if(ty0.startsWith("Other"))c.other=ot;
+const o=build().find(i=>i.M.includes(c)).M.filter(x=>x!==c).map(x=>ORD.indexOf(x.st));if(o.length&&Math.min(...o)===1){c.st="Crew assigned";c.crew=build().find(i=>i.M.includes(c)).crew}if(a==="rep"||!mine)mine=c.id}}
+else if(a==="asg"){const i=I.find(x=>x.id===id),cw=v("cw-"+id);i.M.forEach(c=>{c.st="Crew assigned";c.crew=cw});addLog(sess.user,"assigned "+cw+" to "+id)}
+else if(a==="done"){const i=I.find(x=>x.id===id),ca=v("sc-"+id);i.M.forEach(c=>{c.st="Completed";c.cause=ca});addLog(sess.user,"marked "+id+" completed ("+ca+")")}
+document.getElementById("app").classList.toggle("fresh",["role","ut","at"].includes(a));render()});
+const RM=matchMedia("(prefers-reduced-motion:reduce)").matches;document.getElementById("app").classList.add("fresh");document.addEventListener("keydown",e=>{if(e.key==="Enter"){const k={lp:"login",rrn:"rr"}[e.target.id],b=k&&document.querySelector('[data-a="'+k+'"]');if(b)b.click()}});document.addEventListener("change",e=>{const i=e.target.id,x=e.target.value,sh=(n,on)=>{const el=document.getElementById(n);if(el)el.style.display=on?"block":"none"};if(i==="ty"){sh("firew",x.startsWith("Fire"));sh("othw",x.startsWith("Other"))}if(i==="sp")sh("spow",x==="X")});seed();render();
+</script></body></html>
